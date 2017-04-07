@@ -71,6 +71,12 @@
 			],
 			"import/prefer-default-export": [
 				0
+			],
+			"react/jsx-tag-spacing": [
+				0
+			],
+			"react/jsx-space-before-closing": [
+				0
 			]
 		}
 	}
