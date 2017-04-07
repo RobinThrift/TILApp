@@ -15,6 +15,10 @@
 .*/Libraries/react-native/ReactNative.js
 
 .*/node_modules/react-navigation/.*
+.*/node_modules/native-base/src/.*
+.*/node_modules/react-native-easy-grid/.*
+.*/node_modules/react-native-keyboard-aware-scroll-view/.*
+.*/node_modules/react-static-container/lib/.*
 
 [include]
 

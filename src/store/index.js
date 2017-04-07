@@ -1,7 +1,7 @@
 // @flow
 import {applyMiddleware, createStore, compose} from 'redux'
 import thunk from 'redux-thunk'
-import createLogger from 'redux-logger'
+import {createLogger} from 'redux-logger'
 import {AsyncStorage} from 'react-native'
 import {persistStore, autoRehydrate} from 'redux-persist'
 import immutableTransform from 'redux-persist-transform-immutable'
@@ -21,10 +21,13 @@ if (__DEV__) {
 }
 
 export function configureStore(onComplete: ?() => void) {
-    let store = createStore(rootReducer, undefined, compose(applyMiddleware(...middleware), autoRehydrate()))
+    let store = createStore(rootReducer, compose(applyMiddleware(...middleware), autoRehydrate()))
     persistStore(store, {
         storage: AsyncStorage,
-        transforms: [immutableTransform()]
+        transforms: [immutableTransform()],
+        blacklist: [
+            'navigation'
+        ]
     }, onComplete)
 
     return store
