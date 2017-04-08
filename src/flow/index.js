@@ -2,7 +2,7 @@
 
 export type FSA = {|
     type: string,
-    payload?: Object,
+    payload?: any,
     meta?: Object,
     error?: boolean
 |}

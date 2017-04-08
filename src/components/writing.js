@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, ActivityIndicator} from 'react-native'
 import {
     Button,
     Icon,
@@ -26,72 +26,64 @@ let styles = {
         alignItems: 'center',
         top: 20
     },
-    settingsButton: {
-    },
-    postButton: {
-
+    spinner: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'transparent',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 }
 
 export type WritingProps = {
+    addPost: (content: string) => void,
+    draft: string,
     navigation: {
         navigate: (target: string) => void
     },
-    postContent: (content: string) => void
+    isSending: boolean,
+    updateDraft: (content: string) => void
 }
 
-type WritingState = {
-    post: string
-}
+export function Writing(props: WritingProps) {
+    let {navigation, updateDraft, addPost} = props
 
-export class Writing extends React.Component<void, WritingProps, WritingState> {
-    state: WritingState
-
-    constructor(props: WritingProps) {
-        super(props)
-        this.state = {
-            post: ''
-        }
-    }
-
-    onTextChange(newText: string) {
-        this.setState({
-            ...this.state,
-            post: newText
-        })
-    }
-
-    render() {
-        let { navigation, postContent } = this.props
-
-        return (
-            <View style={styles.base}>
-                <View style={styles.header}>
-                    <Button
-                        style={styles.settingsButton}
-                        transparent
-                        onPress={() => navigation.navigate('Settings')}
-                    >
-                        <Icon name="settings" />
-                    </Button>
-                    <Button
-                        style={styles.postButton}
-                        transparent
-                        onPress={() => postContent(this.state.post)}
-                    >
-                        <Icon name="send" />
-                    </Button>
+    return (
+        <View style={styles.base}>
+            {props.isSending &&
+                <View style={styles.spinner}>
+                    <ActivityIndicator />
                 </View>
-                <Input
-                    style={styles.input}
-                    multiline
-                    autoFocus
-                    placeholder="Today I learned..."
-                    onChangeText={this.onTextChange.bind(this)}
-                    value={this.state.post}
-                />
+            }
+            <View
+                style={styles.header}
+                pointerEvents={(props.isSending ? 'none' : 'auto')}
+            >
+                <Button
+                    transparent
+                    onPress={() => navigation.navigate('Settings')}
+                >
+                    <Icon name="settings" />
+                </Button>
+                <Button
+                    transparent
+                    onPress={() => addPost(props.draft)}
+                >
+                    <Icon name="send" />
+                </Button>
             </View>
-        )
-    }
+            <Input
+                multiline
+                autoFocus
+                style={styles.input}
+                placeholder="Today I learned..."
+                value={props.draft}
+                onChangeText={(s: string) => updateDraft(s)}
+            />
+        </View>
+    )
 }
-

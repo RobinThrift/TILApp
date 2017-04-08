@@ -7,6 +7,7 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"axios": "^0.16.0",
 		"eslint-plugin-react": "^6.10.3",
 		"immutable": "^3.8.1",
 		"lodash": "^4.17.4",
@@ -81,6 +82,12 @@
 			"react/jsx-closing-bracket-location": [
 				1,
 				"tag-aligned"
+			],
+			"react/no-unused-prop-types": [
+				0
+			],
+			"react/jsx-no-bind": [
+				0
 			]
 		}
 	}

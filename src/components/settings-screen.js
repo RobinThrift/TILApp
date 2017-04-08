@@ -81,29 +81,29 @@ export class SettingsScreen extends React.Component<void, SettingsProps, Setting
                             <Label>Base URL</Label>
                             <Input
                                 value={this.state.baseURL}
-                                onChangeText={this.updateInternalSetting.bind(this, 'baseURL')}
                                 autoCorrect={false}
                                 autoCapitalize="none"
                                 keyboardType="url"
+                                onChangeText={this.updateInternalSetting.bind(this, 'baseURL')}
                             />
                         </Item>
                         <Item stackedLabel>
                             <Label>Secret</Label>
                             <Input
+                                secureTextEntry
                                 value={this.state.secret}
-                                onChangeText={this.updateInternalSetting.bind(this, 'secret')}
                                 autoCorrect={false}
                                 autoCapitalize="none"
-                                secureTextEntry
+                                onChangeText={this.updateInternalSetting.bind(this, 'secret')}
                             />
                         </Item>
                         <Item stackedLabel>
                             <Label>User Agent</Label>
                             <Input
                                 value={this.state.ua}
-                                onChangeText={this.updateInternalSetting.bind(this, 'ua')}
                                 autoCorrect={false}
                                 autoCapitalize="none"
+                                onChangeText={this.updateInternalSetting.bind(this, 'ua')}
                             />
                         </Item>
                     </Form>

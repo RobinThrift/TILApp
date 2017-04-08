@@ -1,10 +1,9 @@
 // @flow
-import React from 'react'
 import {connect} from 'react-redux'
 import {SettingsScreen} from '../components/settings-screen'
 import {setSettings} from '../actions/settings'
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = state => ({
     ...state.settings
 })
 

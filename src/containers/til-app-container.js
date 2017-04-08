@@ -3,6 +3,7 @@ import React from 'react'
 import {Provider} from 'react-redux'
 import {TILApp} from '../components/til-app'
 import {configureStore} from '../store'
+import {clearPostState} from '../actions/posts'
 
 type TILAppContainerState = {
     isLoading: boolean,
@@ -16,7 +17,12 @@ export class TILAppContainer extends React.Component<void, void, TILAppContainer
         super()
         this.state = {
             isLoading: true,
-            store: configureStore(() => this.setState({isLoading: false}))
+            store: configureStore(
+                () => {
+                    this.setState({isLoading: false})
+                    this.state.store.dispatch(clearPostState())
+                }
+            )
         }
     }
 
