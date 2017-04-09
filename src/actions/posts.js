@@ -1,4 +1,5 @@
 // @flow
+import * as Keychain from 'react-native-keychain'
 import axios from 'axios'
 import type {FSA} from '../flow'
 import type {AppState} from '../reducers/index'
@@ -19,15 +20,29 @@ export const updateDraft = (newContent: string) => ({
 })
 
 export const addPost = (post: string) => {
-    return (dispatch: (action: FSA) => void, getState: () => AppState) => {
+    return async (dispatch: (action: FSA) => void, getState: () => AppState) => {
         let state = getState()
 
         dispatch({
             type: ADD_POST_START
         })
 
+        let creds = await Keychain
+            .getGenericPassword('til-app')
+
+        if (!creds) {
+            dispatch({
+                type: ADD_POST_ERROR,
+                error: true,
+                payload: 'Missing credentials!'
+            })
+            return
+        }
+
+            console.log('creds', creds);
+
         axios({
-            url: `${state.settings.baseURL}/add?secret=${state.settings.secret}`,
+            url: `${state.settings.baseURL}/add?secret=${creds.password}`,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

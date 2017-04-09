@@ -1,6 +1,6 @@
 // @flow
 import {createReducer} from '../helper/create-reducer'
-import {SET_SETTINGS} from '../actions/settings'
+import {SET_SETTINGS_END} from '../actions/settings'
 
 export type Settings = {
     baseURL: string,
@@ -15,10 +15,11 @@ const initState: Settings = {
 }
 
 export const settingsReducer = createReducer(initState, {
-    [SET_SETTINGS]: (state, {payload}) => {
+    [SET_SETTINGS_END]: (state, {payload}) => {
         return {
             ...state,
-            ...payload
+            baseURL: payload.baseURL,
+            ua: payload.ua
         }
     }
 })

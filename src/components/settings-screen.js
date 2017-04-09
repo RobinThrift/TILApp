@@ -22,7 +22,6 @@ import type {Settings} from '../reducers/settings'
 
 type SettingsProps = {
     baseURL: string,
-    secret: string,
     ua: string,
     setSettings: (s: Settings) => void,
     navigation: {
@@ -32,8 +31,8 @@ type SettingsProps = {
 
 type SettingsState = {
     baseURL: string,
-    secret: string,
-    ua: string
+    ua: string,
+    secret: string
 }
 
 export class SettingsScreen extends React.Component<void, SettingsProps, SettingsState> {
@@ -43,8 +42,8 @@ export class SettingsScreen extends React.Component<void, SettingsProps, Setting
         super(props)
         this.state = {
             baseURL: props.baseURL,
-            secret: props.secret,
-            ua: props.ua
+            ua: props.ua,
+            secret: new Date().getTime().toString()
         }
     }
 
@@ -91,6 +90,7 @@ export class SettingsScreen extends React.Component<void, SettingsProps, Setting
                             <Label>Secret</Label>
                             <Input
                                 secureTextEntry
+                                clearTextOnFocus
                                 value={this.state.secret}
                                 autoCorrect={false}
                                 autoCapitalize="none"
